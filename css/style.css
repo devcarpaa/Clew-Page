@@ -431,7 +431,9 @@ img {
     margin-bottom: 1rem;
     background: linear-gradient(90deg, var(--primary-color), #fff);
     -webkit-background-clip: text;
+    background-clip: text; /* <-- Agregá esta línea */
     -webkit-text-fill-color: transparent;
+    color: transparent; /* <-- Y esta línea por buena práctica */
     animation: fadeInDown 1s ease-out;
 }
 
@@ -446,6 +448,25 @@ img {
     animation-fill-mode: both;
 }
 
+.profile-card__img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.profile-card__name {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.profile-card__role {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
 .profile-card {
     padding: 2rem;
     max-width: 350px;
@@ -479,42 +500,6 @@ img {
     margin-bottom: 1.5rem;
 }
 
-/* --- PROFILE CARD (VERSIÓN FINAL CORREGIDA) --- */
-
-.profile-card {
-    padding: 2rem;
-    max-width: 350px;
-    margin: 3rem auto;
-    text-align: center;
-    animation: zoomIn 1s ease-out 0.6s;
-    animation-fill-mode: both;
-}
-
-.profile-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px 0 var(--shadow-color);
-}
-
-.profile-card__img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.profile-card__name {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
-}
-
-.profile-card__role {
-    color: var(--primary-color);
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-}
-
-/* ESTILOS DEL BOTÓN (AHORA EN EL LUGAR CORRECTO) */
 .profile-card__socials {
     display: flex;
     justify-content: center;
@@ -549,6 +534,31 @@ img {
 }
 
 
+
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--surface-color);
+}
+
+::-webkit-scrollbar {
+    width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 20px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-color-alt);
+}   
+
+
 /* FAQ WHY US */
 
 .why-us__container {
@@ -560,8 +570,8 @@ img {
 .why-us__card {
     padding: 2rem;
     text-align: center;
-    border: 1px solid #222; /* <-- Borde sutil gris oscuro */
-    border-radius: 16px;   /* <-- Bordes redondeados */
+    border: 1px solid #222; 
+    border-radius: 16px;
 }
 
 .why-us__card:hover {
@@ -597,7 +607,7 @@ img {
 }
 
 .faq__question::after {
-    content: '\f078'; /* Font Awesome Angle Down */
+    content: '\f078';
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     transition: transform 0.3s ease;
@@ -614,17 +624,16 @@ img {
     transform: rotate(180deg);
 }
 .faq__item[open] .faq__answer {
-    max-height: 300px; /* Adjust as needed */
+    max-height: 300px;
     padding: 0 1.5rem 1.5rem;
 }
 
-/* ===== ESTILOS PARA PÁGINA DE COMANDOS (VERSIÓN HÍBRIDA FINAL) ===== */
+/* COMMANDS */
 
 .commands-page {
     padding-top: calc(var(--header-height) + 4rem);
 }
 
-/* Estilos para los botones de navegación */
 .commands__nav {
     display: flex;
     justify-content: center;
@@ -641,8 +650,8 @@ img {
     cursor: pointer;
     border-radius: 2rem;
     transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif; /* Aseguramos la fuente */
-    font-size: 0.9rem; /* Ajustamos tamaño */
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.9rem; 
 }
 
 .commands__nav-btn:hover, 
@@ -652,17 +661,15 @@ img {
     border-color: var(--primary-color);
 }
 
-/* Contenedor para el contenido de cada pestaña */
 .commands__content {
-    display: none; /* Oculto por defecto */
+    display: none; 
     animation: fadeIn 0.5s ease;
 }
 
 .commands__content.active {
-    display: block; /* Visible cuando está activo */
+    display: block; 
 }
 
-/* Estilos para la nueva lista de comandos */
 .command-list {
     display: flex;
     flex-direction: column;
@@ -696,16 +703,14 @@ img {
     font-size: 0.95rem;
 }
 
-/* ===== Pricing Page (VERSIÓN FINAL CON DISEÑO RESTAURADO) ===== */
+/* PRICING */
 
-/* --- Estilos generales de la sección --- */
 .pricing.section {
     padding-top: calc(var(--header-height) + 4rem);
 }
 
-/* --- Selector de Moneda con Animación Deslizante --- */
 .currency-switcher {
-    position: relative; /* Necesario para posicionar la píldora */
+    position: relative;
     display: flex;
     justify-content: center;
     background-color: var(--surface-color);
@@ -719,41 +724,37 @@ img {
 .currency-btn {
     padding: 0.5rem 1.5rem;
     border: none;
-    background-color: transparent; /* El fondo ahora es transparente */
+    background-color: transparent; 
     color: var(--text-color-muted);
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     cursor: pointer;
     border-radius: 2rem;
     transition: color 0.3s ease;
-    position: relative; /* Necesario para que esté sobre la píldora */
+    position: relative; 
     z-index: 2;
 }
 
-/* Cuando un botón está activo, solo cambiamos el color del texto a blanco */
 .currency-btn.active {
     color: #fff;
 }
 
-/* La píldora que se desliza */
 .sliding-pill {
     position: absolute;
     top: 0.5rem;
-    left: 0.5rem; /* Posición inicial */
-    width: calc(50% - 0.5rem); /* Ocupa la mitad del espacio */
-    height: calc(100% - 1rem); /* Ocupa toda la altura */
+    left: 0.5rem; 
+    width: calc(50% - 0.5rem); 
+    height: calc(100% - 1rem);
     background-color: var(--primary-color);
     border-radius: 2rem;
     z-index: 1;
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Cuando el botón ARS está activo, movemos la píldora */
 .currency-btn[data-currency="ars"].active ~ .sliding-pill {
     transform: translateX(100%);
 }
 
-/* --- Estructura de categorías de precios --- */
 .pricing-category {
     margin-bottom: 4rem;
 }
@@ -763,11 +764,6 @@ img {
     margin-bottom: 0.5rem;
 }
 
-
-/* --- ESTILOS PARA LA NUEVA TARJETA DE DISCORD VERTICAL --- */
-/* --- ESTILOS PARA LA TARJETA DE DISCORD INTERACTIVA (VERSIÓN FINAL) --- */
-
-/* 1. Definición de la animación de aparición */
 @keyframes fade-in-tilt {
     from {
         opacity: 0;
@@ -779,7 +775,7 @@ img {
     }
 }
 
-/* 2. Estilos de la tarjeta */
+/* DISCORD SV */
 .discord-widget-vertical {
     display: flex;
     flex-direction: column;
@@ -793,20 +789,17 @@ img {
     overflow: hidden;
     
     
-    /* Preparamos la transición para el hover */
     transition: transform 0.4s ease;
 }
 
-/* 3. Clase que activa la animación de aparición (controlada por JS) */
 .discord-widget-vertical.is-visible {
     animation: fade-in-tilt 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
 .discord-widget-vertical:hover {
-    transform: scale(1.03); /* Efecto de zoom al pasar el mouse */
+    transform: scale(1.03); 
 }
 
-/* 4. Efecto de luz que sigue al mouse */
 .discord-widget-vertical::before {
     content: '';
     position: absolute;
@@ -817,18 +810,17 @@ img {
     background: radial-gradient(circle at center, rgba(123, 104, 238, 0.2), transparent 60%);
     transform: translate(-50%, -50%);
     z-index: 0;
-    opacity: 0; /* Oculto por defecto */
+    opacity: 0; 
     transition: opacity 0.4s ease;
 }
 
 .discord-widget-vertical:hover::before {
-    opacity: 1; /* Aparece al pasar el mouse */
+    opacity: 1; 
 }
 
-/* 5. Estilos del contenido interno */
 .discord-widget-vertical > * {
     position: relative;
-    z-index: 1; /* Asegura que el contenido esté sobre la luz */
+    z-index: 1;
 }
 
 .widget-logo-vertical {
@@ -901,7 +893,6 @@ img {
     color: #fff;
 }
 
-/* 6. Animación de pulso para el indicador Online */
 @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(35, 165, 89, 0.7); }
     70% { box-shadow: 0 0 0 10px rgba(35, 165, 89, 0); }
@@ -910,7 +901,7 @@ img {
 
 
 
-/* --- Contenedor y Tarjetas de Precios (DISEÑO RESTAURADO) --- */
+/* PRICING 2*/
 .pricing__container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -919,9 +910,9 @@ img {
 }
 
 .pricing__card {
-    background-color: var(--surface-color); /* Fondo oscuro sutil */
-    border: 1px solid var(--glass-border);   /* Borde estilo cristal */
-    border-radius: 16px;                     /* Bordes redondeados */
+    background-color: var(--surface-color); 
+    border: 1px solid var(--glass-border);  
+    border-radius: 16px;                    
     padding: 2.5rem 2rem;
     text-align: center;
     display: flex;
@@ -934,10 +925,9 @@ img {
     box-shadow: 0 10px 30px var(--shadow-color);
 }
 
-/* Tarjeta destacada con borde de color */
 .pricing__card--featured {
     border: 2px solid var(--primary-color);
-    transform: scale(1.05); /* La hacemos un poco más grande */
+    transform: scale(1.05);
 }
 .pricing__card--featured:hover {
     transform: scale(1.08);
@@ -992,7 +982,7 @@ img {
     color: #fff;
 }
 
-/* --- Sección de Métodos de Pago --- */
+/* PAYMENTS */
 .payment-methods__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1029,7 +1019,7 @@ img {
     color: var(--primary-color);
 }
 
-/* ===== Changelogs Page (VERSIÓN FINAL) ===== */
+/* CHANGELOGS */
 .changelogs.section {
     padding-top: calc(var(--header-height) + 4rem);
 }
@@ -1040,7 +1030,6 @@ img {
     margin: 0 auto;
 }
 
-/* La línea vertical del medio */
 .timeline::after {
     content: '';
     position: absolute;
@@ -1053,7 +1042,6 @@ img {
     z-index: -1;
 }
 
-/* Contenedor de cada item (caja + fecha) */
 .timeline__item {
     padding: 1rem 0;
     position: relative;
@@ -1061,19 +1049,17 @@ img {
     box-sizing: border-box;
 }
 
-/* Items de la izquierda */
 .timeline__item:nth-child(odd) {
     left: 0;
-    padding-right: 50px; /* Espacio para el punto y la línea */
+    padding-right: 50px; 
 }
 
 /* Items de la derecha */
 .timeline__item:nth-child(even) {
     left: 50%;
-    padding-left: 50px; /* Espacio para el punto y la línea */
+    padding-left: 50px; 
 }
 
-/* El punto del medio (CENTRADO CORREGIDO) */
 .timeline__item::after {
     content: '';
     position: absolute;
@@ -1081,25 +1067,22 @@ img {
     height: 20px;
     background-color: var(--background-color);
     border: 4px solid var(--primary-color);
-    top: 1.5rem; /* Ajusta la altura vertical si es necesario */
+    top: 1.5rem; 
     border-radius: 50%;
     z-index: 1;
 }
 
-/* Para los items de la izquierda */
 .timeline__item:nth-child(odd)::after {
     right: 0;
     transform: translateX(50%);
 }
 
-/* Para los items de la derecha */
 .timeline__item:nth-child(even)::after {
     left: 0;
     transform: translateX(-50%);
 }
 
 
-/* La fecha en el lado opuesto */
 .timeline__date {
     position: absolute;
     top: 1.5rem;
@@ -1116,7 +1099,6 @@ img {
     margin-right: 40px;
 }
 
-/* Contenido de la caja */
 .timeline__content {
     padding: 1.5rem;
     position: relative;
@@ -1127,7 +1109,7 @@ img {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    list-style: none; /* Quita el triángulo por defecto */
+    list-style: none; 
 }
 .changelog__summary::-webkit-details-marker {
     display: none;
@@ -1138,7 +1120,6 @@ img {
     margin: 0;
 }
 
-/* Animación de la flecha */
 .changelog__arrow {
     transition: transform 0.3s ease;
 }
@@ -1146,15 +1127,13 @@ details[open] > summary .changelog__arrow {
     transform: rotate(180deg);
 }
 
-/* Contenido desplegable con animación robusta */
 .changelog__details {
     margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid var(--glass-border);
-    overflow: hidden; /* Muy importante para la animación */
+    overflow: hidden; 
 }
 
-/* Animación para abrir (fade y slide) */
 @keyframes slide-down {
     from {
         opacity: 0;
@@ -1164,11 +1143,10 @@ details[open] > summary .changelog__arrow {
     to {
         opacity: 1;
         transform: translateY(0);
-        max-height: 1000px; /* Un valor grande para que quepa todo */
+        max-height: 1000px; 
     }
 }
 
-/* Animación para cerrar */
 @keyframes slide-up {
     from {
         opacity: 1;
@@ -1182,12 +1160,10 @@ details[open] > summary .changelog__arrow {
     }
 }
 
-/* Aplicamos la animación al abrir */
 details[open] > .changelog__details {
     animation: slide-down 0.4s ease-out;
 }
 
-/* Aplicamos la animación al cerrar usando la clase de JS */
 details.is-closing > .changelog__details {
     animation: slide-up 0.4s ease-out;
 }
@@ -1215,7 +1191,6 @@ details.is-closing > .changelog__details {
     color: var(--text-color-muted);
 }
 
-/* Etiquetas de colores */
 .tag {
     display: inline-block;
     color: #fff;
@@ -1230,7 +1205,6 @@ details.is-closing > .changelog__details {
 .tag.fixed { background-color: #dc3545; }
 
 
-/* --- Responsive para el Timeline --- */
 @media screen and (max-width: 768px) {
     .timeline::after {
         left: 20px;
@@ -1254,7 +1228,7 @@ details.is-closing > .changelog__details {
     }
 }
 
-/* ===== Footer ===== */
+/* FOOTER */
 .footer {
     padding: 4rem 0 2rem;
     text-align: center;
@@ -1327,7 +1301,6 @@ details.is-closing > .changelog__details {
     color: var(--text-color-muted);
 }
 
-/* ===== Animations ===== */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -1353,7 +1326,6 @@ details.is-closing > .changelog__details {
     to { height: 100%; }
 }
 
-/* ===== Responsive Design ===== */
 @media screen and (max-width: 992px) {
     .container {
         padding: 0 1rem;
@@ -1377,7 +1349,6 @@ details.is-closing > .changelog__details {
         font-size: 1rem;
     }
 
-    /* Ocultar elementos de escritorio */
     .nav__list {
         display: none;
     }
@@ -1385,16 +1356,14 @@ details.is-closing > .changelog__details {
         display: none;
     }
 
-    /* Mostrar ícono de hamburguesa */
     .nav__toggle {
         display: block;
     }
 
-    /* Estilo del Menú Desplegable */
     .nav__menu {
         position: fixed;
         top: 0;
-        right: -100%; /* Empieza fuera de la pantalla */
+        right: -100%; 
         width: 85%;
         max-width: 320px;
         height: 100%;
@@ -1414,12 +1383,10 @@ details.is-closing > .changelog__details {
         transition: right 0.4s ease-in-out;
     }
 
-    /* Clase que se añade con JS para mostrar el menú */
     .nav__menu.show-menu {
         right: 0;
     }
     
-    /* Mostrar la lista y sus elementos dentro del menú móvil */
     .nav__menu .nav__list {
         display: flex;
         flex-direction: column;
@@ -1432,21 +1399,19 @@ details.is-closing > .changelog__details {
     }
 
     .nav__link::after {
-        display: none; /* Ocultar subrayado en móvil */
+        display: none; 
     }
 
     .nav__icon {
-        display: inline-block; /* Mostrar íconos en móvil */
+        display: inline-block; 
     }
 
-    /* Mostrar el botón de adquirir dentro del menú */
     .nav__button--mobile {
         display: inline-flex;
         width: 100%;
         justify-content: center;
     }
 
-    /* Mostrar y posicionar el botón de cierre */
     .nav__close {
         display: block;
         position: absolute;
@@ -1455,7 +1420,6 @@ details.is-closing > .changelog__details {
         font-size: 1.8rem;
     }
 
-    /* Estilos responsivos para las otras secciones */
     .timeline::after {
         left: 31px;
     }
@@ -1474,61 +1438,27 @@ details.is-closing > .changelog__details {
 
 
 
-/* ===== LIBRERÍA DE ANIMACIONES REUTILIZABLES ===== */
-
-/* --- 1. Animación de Aparición (Fade In + Slide Up) --- */
-
-/* Estado inicial de los elementos que van a aparecer */
 .anim-on-scroll {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* Estado final cuando el elemento es visible */
 .anim-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* --- 2. Animación al Pasar el Mouse (Lift Up) --- */
 .anim-lift-on-hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .anim-lift-on-hover:hover {
-    transform: translateY(-8px); /* Se eleva un poco */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    transform: translateY(-8px); /*
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 
-/* ===== ESTILOS PARA LA BARRA DE DESPLAZAMIENTO (UNIFICADO) ===== */
-
-/* --- Para Firefox --- */
-html {
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) var(--surface-color);
-}
-
-/* --- Para Chrome, Edge, Safari --- */
-::-webkit-scrollbar {
-    width: 8px; /* Ancho de la barra */
-}
-
-::-webkit-scrollbar-track {
-    background: var(--surface-color);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-    border-radius: 20px; /* Bordes bien redondeados */
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--primary-color-alt);
-}
-
-/* --- ANIMACIÓN DE APARICIÓN REUTILIZABLE --- */
 
 /* 1. Definimos la animación */
 @keyframes fade-in-up {
@@ -1571,5 +1501,5 @@ html {
 
 
 
-
+}
 }
