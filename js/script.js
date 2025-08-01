@@ -2,15 +2,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Animación de Scroll para Header ---
     const header = document.getElementById('header');
+    const body = document.body; // Nos aseguramos de tener el body
     if (header) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
+                body.classList.add('page-scrolled'); // <-- LÍNEA AÑADIDA
             } else {
                 header.classList.remove('scrolled');
+                body.classList.remove('page-scrolled'); // <-- LÍNEA AÑADIDA
             }
         });
-    }
+
 
     // --- Lógica del Menú Móvil ---
     const mobileMenu = document.getElementById('nav-menu');
@@ -48,47 +51,83 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Lógica para el Selector de Moneda en pricing.html ---
-    const currencySwitcher = document.querySelector('.currency-switcher');
-    if (currencySwitcher) {
-        const currencyBtns = currencySwitcher.querySelectorAll('.currency-btn');
-        const allPrices = document.querySelectorAll('.pricing__card__price');
-        
-        function animateValue(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const currentValue = Math.floor(progress * (end - start) + start);
-                element.textContent = currentValue.toLocaleString('es-AR');
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
+// --- Lógica para el Selector de Moneda (con Descuento y Animación de Botón) ---
+const currencySwitcher = document.querySelector('.currency-switcher');
+if (currencySwitcher) {
+    const currencyBtns = currencySwitcher.querySelectorAll('.currency-btn');
+    const allPrices = document.querySelectorAll('.pricing__card__price');
+    const slidingPill = currencySwitcher.querySelector('.sliding-pill');
 
-        currencyBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (btn.classList.contains('active')) return;
-                currencyBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const targetCurrency = btn.dataset.currency;
-                allPrices.forEach(priceEl => {
-                    const valueSpan = priceEl.querySelector('.price-value');
-                    const currencySpan = priceEl.querySelector('.price-currency');
-                    const startValue = parseInt(valueSpan.textContent.replace(/\./g, ''));
-                    const endValue = (targetCurrency === 'ars') 
-                        ? parseInt(priceEl.dataset.priceArs) 
-                        : parseInt(priceEl.dataset.priceUsd);
-                    if (!isNaN(startValue) && !isNaN(endValue)) {
-                        currencySpan.textContent = '$';
-                        animateValue(valueSpan, startValue, endValue, 500);
-                    }
-                });
+    // Función que anima un número de un valor inicial a uno final
+    function animateValue(element, start, end, duration) {
+        if (!element) return; // Si el elemento no existe, no hace nada
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const currentValue = Math.floor(progress * (end - start) + start);
+            element.textContent = currentValue.toLocaleString('es-AR');
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+    
+    // Función para mover la píldora del botón
+    function movePill() {
+        const activeButton = currencySwitcher.querySelector('.currency-btn.active');
+        if (activeButton && slidingPill) {
+            slidingPill.style.width = activeButton.offsetWidth + 'px';
+            slidingPill.style.transform = `translateX(${activeButton.offsetLeft}px)`;
+            // Ajuste para el padding del contenedor
+            const parentPadding = parseFloat(window.getComputedStyle(activeButton.parentElement).paddingLeft);
+            slidingPill.style.transform = `translateX(${activeButton.offsetLeft - parentPadding}px)`;
+        }
+    }
+    
+    // Posiciona la píldora correctamente al cargar la página
+    setTimeout(movePill, 100); 
+
+    currencyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.classList.contains('active')) return;
+            
+            currencyBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            movePill(); // Mueve la píldora al hacer clic
+
+            const targetCurrency = btn.dataset.currency;
+
+            allPrices.forEach(priceEl => {
+                const originalValueSpan = priceEl.querySelector('.price-value-original');
+                const saleValueSpan = priceEl.querySelector('.price-value');
+                
+                // Leemos los valores iniciales para animar desde ahí
+                const startOriginal = originalValueSpan ? parseInt(originalValueSpan.textContent.replace(/\./g, '')) : 0;
+                const startSale = saleValueSpan ? parseInt(saleValueSpan.textContent.replace(/\./g, '')) : 0;
+
+                // Leemos los valores finales correctos usando camelCase
+                let endOriginal, endSale;
+                if (targetCurrency === 'ars') {
+                    endOriginal = parseInt(priceEl.dataset.priceArsOriginal);
+                    endSale = parseInt(priceEl.dataset.priceArsSale);
+                } else {
+                    endOriginal = parseInt(priceEl.dataset.priceUsdOriginal);
+                    endSale = parseInt(priceEl.dataset.priceUsdSale);
+                }
+
+                // Animamos los valores si existen
+                if (!isNaN(endSale)) {
+                    animateValue(saleValueSpan, startSale, endSale, 500);
+                }
+                if (!isNaN(endOriginal)) {
+                    animateValue(originalValueSpan, startOriginal, endOriginal, 500);
+                }
             });
         });
-    }
+    });
+}
 
     // --- Lógica para el botón "Volver Arriba" ---
     const scrollUp = document.getElementById('scroll-up');
@@ -205,5 +244,5 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(element);
         });
     }
-
+    }
 }); // Cierre del 'DOMContentLoaded'
