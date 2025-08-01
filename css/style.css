@@ -286,6 +286,49 @@ img {
     transition: left 0.7s ease-out; /* La transición se pone aquí */
 }
 
+
+
+/* --- SACAR ESTO AL TERMINAR DESCUENTO!!!!!" --- */
+
+/* Contenedor del precio con descuento */
+.pricing__card__price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Precio original (pequeño y tachado) */
+.price-original {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-color-muted);
+    text-decoration: line-through; /* Línea tachada */
+    opacity: 0.7;
+}
+
+/* Precio con descuento (grande y principal) */
+.price-sale {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color); /* Lo destacamos con el color principal */
+}
+
+/* Ajustamos los spans internos del precio */
+.price-sale .price-value {
+    color: var(--primary-color);
+}
+.pricing__card__price .price-interval {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-color-muted);
+    line-height: 1; /* Mejora la alineación */
+}
+
+
+
+
 /* --- ANIMACIÓN PÍLDORA (SOLO PARA ESCRITORIO) --- */
 .header.scrolled .nav {
     /* Mantenemos el ancho máximo que definimos antes */
@@ -391,6 +434,25 @@ img {
     }
     .nav {
         padding: 0 1rem;
+    }
+}
+
+
+/* --- Animación del Selector de Moneda (Método Transform) --- */
+.switcher-container {
+    margin-bottom: 3rem;
+    height: 50px;
+}
+.currency-switcher {
+    /* Centrado por defecto */
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+@media screen and (min-width: 769px) {
+    body.page-scrolled .currency-switcher {
+        /* El cálculo lo mueve desde el centro hasta la izquierda con 2rem de espacio */
+        transform: translateX(calc(-50vw + 100% + -3rem));
     }
 }
 
@@ -716,7 +778,10 @@ html {
 }
 
 .currency-switcher {
-    position: relative;
+    position: sticky;           /* <-- La propiedad clave */
+    top: 7rem;                  /* Distancia desde arriba donde se va a "pegar" */
+    z-index: 50;                /* Se asegura de que esté por encima del contenido */
+    
     display: flex;
     justify-content: center;
     background-color: var(--surface-color);
